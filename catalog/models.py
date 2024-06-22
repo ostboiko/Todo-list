@@ -13,7 +13,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(null=True, blank=True)
     done = models.BooleanField(default=False)
-    tag = models.JSONField(Tag, related_name='tasks')
+    tags = models.JSONField(Tag, related_name="tasks")
 
     def __str__(self):
         return self.content
