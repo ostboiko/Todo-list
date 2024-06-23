@@ -14,4 +14,4 @@ class TaskForm(forms.ModelForm):
 class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
-        fieads = ["name"]
+        fields = ["name"]
