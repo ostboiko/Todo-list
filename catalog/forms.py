@@ -7,7 +7,7 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ["content", "deadline", "done", "tags"]
         widgets = {
-            'tags': forms.CheckboxSelectMultiple,
+            "tags": forms.CheckboxSelectMultiple,
         }
 
 

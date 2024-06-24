@@ -36,4 +36,3 @@ class HomeView(View):
             "tag_form": tag_form,
         }
         return render(request, self.template_name, context)
-
