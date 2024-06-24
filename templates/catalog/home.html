@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <title>Todo List</title>
 </head>
 <body>
+    <h1>Todo List</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ task_form.as_p }}
+        <button type="submit" name="submit_task">Add Task</button>
+    </form>
 
+    <h2>Tasks</h2>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.content }} - {{ task.created_at }} - {% if task.deadline %}{{ task.deadline }}{% else %}No deadline{% endif %} - 
+                {% if task.done %}Done{% else %}Not Done{% endif %}
+                <ul>
+                    {% for tag in task.tags.all %}
+                        <li>{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add Tag</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ tag_form.as_p }}
+        <button type="submit" name="submit_tag">Add Tag</button>
+    </form>
 </body>
 </html>
