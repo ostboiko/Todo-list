@@ -1,38 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Todo List</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <h1>Todo List</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ task_form.as_p }}
-        <button type="submit" name="submit_task">Add Task</button>
-    </form>
+{% extends 'catalog/base.html' %}
 
-    <h2>Tasks</h2>
+{% block content %}
+    <h1>Todo List</h1>
     <ul>
         {% for task in tasks %}
             <li>
-                {{ task.content }} - {{ task.created_at }} - {% if task.deadline %}{{ task.deadline }}{% else %}No deadline{% endif %} - 
-                {% if task.done %}Done{% else %}Not Done{% endif %}
-                <ul>
-                    {% for tag in task.tags.all %}
-                        <li>{{ tag.name }}</li>
-                    {% endfor %}
-                </ul>
+                <strong>{{ task.content }}</strong> (Created: {{ task.created_at }})
+                {% if task.deadline %}
+                    - Deadline: {{ task.deadline }}
+                {% endif %}
+                - Done: {{ task.done }}
+                <a href="{% url 'update_task' task.id %}">Update</a>
+                <a href="{% url 'delete_task' task.id %}">Delete</a>
+                {% if task.done %}
+                    <a href="{% url 'complete_task' task.id %}">Undo</a>
+                {% else %}
+                    <a href="{% url 'complete_task' task.id %}">Complete</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
-
-    <h2>Add Tag</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ tag_form.as_p }}
-        <button type="submit" name="submit_tag">Add Tag</button>
-    </form>
-</body>
-</html>
+    <a href="{% url 'add_task' %}">Add New Task</a>
+{% endblock %}
