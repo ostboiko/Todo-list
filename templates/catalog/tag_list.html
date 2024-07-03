@@ -1,0 +1,15 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <h1>Tag List</h1>
+    <ul>
+        {% for tag in tags %}
+            <li>
+                {{ tag.name }}
+                <a href="{% url 'update_tag' tag.id %}">Update</a>
+                <a href="{% url 'tag_confirm_delete' tag.id %}">Delete</a> <!-- Оновлено тут -->
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_tag' %}">Add New Tag</a>
+{% endblock %}
