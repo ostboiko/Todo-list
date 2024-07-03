@@ -1,3 +1,4 @@
+# catalog/forms.py
 from django import forms
 from .models import Task, Tag
 
@@ -5,13 +6,10 @@ from .models import Task, Tag
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ["content", "deadline", "done", "tags"]
-        widgets = {
-            "tags": forms.CheckboxSelectMultiple,
-        }
+        fields = ['content', 'done', 'tags']
 
 
 class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
-        fields = ["name"]
+        fields = ['name']
