@@ -1,0 +1,30 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <h1>Todo List</h1>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <strong>{{ task.content }}</strong> (Created: {{ task.created_at }})
+                {% if task.deadline %}
+                    - Deadline: {{ task.deadline }}
+                {% endif %}
+                - Done: {{ task.done }}
+                <a href="{% url 'update_task' task.id %}">Update</a>
+                <a href="{% url 'delete_task' task.id %}">Delete</a>
+                {% if task.done %}
+                    <form method="post" action="{% url 'complete_task' task.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Undo</button>
+                    </form>
+                {% else %}
+                    <form method="post" action="{% url 'complete_task' task.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Complete</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_task' %}">Add New Task</a>
+{% endblock %}
