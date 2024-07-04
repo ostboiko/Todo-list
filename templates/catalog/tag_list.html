@@ -7,7 +7,7 @@
             <li>
                 {{ tag.name }}
                 <a href="{% url 'update_tag' tag.id %}">Update</a>
-                <a href="{% url 'tag_confirm_delete' tag.id %}">Delete</a> <!-- Оновлено тут -->
+                <a href="{% url 'tag_confirm_delete' tag.id %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
